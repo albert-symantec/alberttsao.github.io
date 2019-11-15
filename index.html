@@ -1,10 +1,290 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>你好，GitHub</title>
-  </head>
-  <body>
-    <h1>覺得厲害</h1>
-  </body>
-</html>
+// This PAC file was served by 'gw1.isolation.local'
+// WARNING: This is an auto-generated file.
+
+function FindProxyForURL(url, host) {
+    host = host.toLowerCase();
+    if (isPlainHostName(host)) {
+        return "DIRECT";
+    }
+
+    var isDnsResolvingAllowed = true;
+    var resolvedIp = getResolvedIp();
+
+    var proxyArray = ["PROXY gw.isolation.local:8080;","PROXY gw3.isolation.local:8080;"];
+
+
+    var proxyDecisionForServerFarmConnectivity = evaluateServerFarmConnectivityRules();
+
+    if (proxyDecisionForServerFarmConnectivity) {
+        return proxyDecisionForServerFarmConnectivity;
+    }
+
+
+    if (shExpMatch(host, "*.stipdi.isolation.local") || shExpMatch(host, "stipdi.isolation.local")) {
+        return "DIRECT";
+    }
+    if ("0.0.0.0" == resolvedIp) {
+        return "DIRECT";
+    }
+    if (resolvedIp && isInNet(resolvedIp, '127.0.0.0', '255.0.0.0')) {
+        return "DIRECT";
+    }
+    if (resolvedIp && isInRanges(resolvedIp, [["192.168.0.1", "192.168.1.114"],["10.0.0.1", "10.255.255.254"],["172.16.0.1", "172.31.255.254"],["192.168.1.116", "192.168.255.254"]])) {
+        return "DIRECT";
+    }
+
+    return makeStringFromArrayWithSeed(proxyArray, convertIpToNumber(myIpAddress()), '', false);
+
+    function evaluateServerFarmConnectivityRules() {
+        if (shExpMatch(url, "http://gw1.isolation.local:3000/test_pages") || shExpMatch(url, "http://internal-resource-server.fire.glass:3000/test_pages/*")) {
+            return makeStringFromArrayWithSeed(proxyArray, convertIpToNumber(myIpAddress()), '', false);
+        }
+        if (shExpMatch(url, "http://gw1.isolation.local:3000/recorder/*") || shExpMatch(url, "http://internal-resource-server.fire.glass:3000/recorder/*")) {
+            return "DIRECT";
+        }
+        if (shExpMatch(url, "http://gw1.isolation.local:3000/runner/*") || shExpMatch(url, "http://internal-resource-server.fire.glass:3000/runner/*")) {
+            return "DIRECT";
+        }
+        if (shExpMatch(url, "http://gw1.isolation.local:3000/*") || shExpMatch(url, "http://internal-resource-server.fire.glass:3000/*")) {
+            return makeStringFromArrayWithSeed(proxyArray, convertIpToNumber(myIpAddress()), '', false);
+        }
+
+        if (("http://gw.isolation.local:8081/proxy.pac" == url.toLowerCase()) || ("http://gw3.isolation.local:8081/proxy.pac" == url.toLowerCase()) || (/^http:\/\/.*\.fire\.glass:8081\/proxy\.pac$/ig.test(url))) {
+            return "DIRECT";
+        }
+        if (shExpMatch(host, "*shared.fireglass") || host === "global-shared.fire.glass" || host === "global-noauth-shared.fire.glass") {
+            return makeStringFromArrayWithSeed(proxyArray, convertIpToNumber(myIpAddress()), '', false);
+        }
+        if (shExpMatch(url, "*force_emulation=true*")) {
+            return makeStringFromArrayWithSeed(proxyArray, convertIpToNumber(myIpAddress()), '', false);
+        }
+        if (shExpMatch(url, "http://wi110.isolation.local:9000*") ||
+            shExpMatch(url, "https://wi110.isolation.local:9000*")){
+            return "DIRECT";
+        }
+        if ((url.substring(0, 5) == "http:" || url.substring(0, 3) == "ws:") && (shExpMatch(host, "gw1.isolation.local") || shExpMatch(host, "*.gw1.isolation.local"))) {
+            return "PROXY gw1.isolation.local;";
+        }
+        if (shExpMatch(host, "gw1.isolation.local") || shExpMatch(host, "*.gw1.isolation.local")) {
+            return "PROXY gw1.isolation.local:443;";
+        }
+        if ((url.substring(0, 5) == "http:" || url.substring(0, 3) == "ws:") && (shExpMatch(host, "wi110.isolation.local") || shExpMatch(host, "*.wi110.isolation.local"))) {
+            return "PROXY wi110.isolation.local;";
+        }
+        if (shExpMatch(host, "wi110.isolation.local") || shExpMatch(host, "*.wi110.isolation.local")) {
+            return "PROXY wi110.isolation.local:443;";
+        }
+        if ((url.substring(0, 5) == "http:" || url.substring(0, 3) == "ws:") && (shExpMatch(host, "gw2.isolation.local") || shExpMatch(host, "*.gw2.isolation.local"))) {
+            return "PROXY gw2.isolation.local;";
+        }
+        if (shExpMatch(host, "gw2.isolation.local") || shExpMatch(host, "*.gw2.isolation.local")) {
+            return "PROXY gw2.isolation.local:443;";
+        }
+        if ((url.substring(0, 5) == "http:" || url.substring(0, 3) == "ws:") && (shExpMatch(host, "gw3.isolation.local") || shExpMatch(host, "*.gw3.isolation.local"))) {
+            return "PROXY gw3.isolation.local;";
+        }
+        if (shExpMatch(host, "gw3.isolation.local") || shExpMatch(host, "*.gw3.isolation.local")) {
+            return "PROXY gw3.isolation.local:443;";
+        }
+        if ((url.substring(0, 5) == "http:" || url.substring(0, 3) == "ws:") && (shExpMatch(host, "gw4.isolation.local") || shExpMatch(host, "*.gw4.isolation.local"))) {
+            return "PROXY gw4.isolation.local;";
+        }
+        if (shExpMatch(host, "gw4.isolation.local") || shExpMatch(host, "*.gw4.isolation.local")) {
+            return "PROXY gw4.isolation.local:443;";
+        }
+        if ((url.substring(0, 5) == "http:" || url.substring(0, 3) == "ws:") && (shExpMatch(host, "gw.isolation.local") || shExpMatch(host, "*.gw.isolation.local"))) {
+            return "PROXY gw.isolation.local;";
+        }
+        if (shExpMatch(host, "gw.isolation.local") || shExpMatch(host, "*.gw.isolation.local")) {
+            return "PROXY gw.isolation.local:443;";
+        }
+ 
+        return null;
+   }
+
+    function getResolvedIp() {
+        var internalResolvedIp = null;
+    
+        if(host) {
+            var isIpV4Address = /^(\d+.){3}\d+$/;
+            var isIpV6Address = /^\[(.*)\]$/;
+    
+            if (isIpV4Address.test(host)) {
+                internalResolvedIp = host;
+            } else {
+                var matches = host.match(isIpV6Address);
+    
+                if (matches && matches.length === 2) {
+                    internalResolvedIp = matches[1];
+                }
+                else if (isDnsResolvingAllowed && isResolvable(host)) {
+                    internalResolvedIp = dnsResolve(host);
+                }
+            }
+        }
+    
+        if(internalResolvedIp && internalResolvedIp.indexOf && internalResolvedIp.indexOf(':') !== -1) {
+            internalResolvedIp = extractIPv6Address(internalResolvedIp);
+        }
+    
+        return internalResolvedIp;
+    }
+    
+    function pad(numberText, partMaxLength) {
+        var padString = new Array(partMaxLength + 1).join("0"); // repeat '0' character
+        var ans = padString.substring(0, padString.length - numberText.length) + numberText;
+        return ans;
+    }
+    
+    function extractIPv6Address(address) {
+        var matches = address.match(/::/g);
+        var amountOfCompressions = (matches || []).length;
+    
+        if(amountOfCompressions > 1) {
+            return null; // Signal that the address was invalid.
+        }
+    
+        if(amountOfCompressions === 1) {
+            var amountOfParts = address.match(/:/g).length;
+            var replacementColonCount = 7 - amountOfParts + 2;
+            var extractedZeros = new Array(replacementColonCount + 1).join(":"); // repeat ':' character
+            address = address.replace('::', extractedZeros);
+        }
+    
+        var parts = address.split(':');
+    
+        for(var i=0; i<parts.length; i++) {
+            parts[i] = pad(parts[i], 4);
+        }
+    
+        var completeAddress = parts.join(':');
+        return completeAddress;
+    }
+    
+    function isInRange(ip, start, end) {
+        if(!ip || !start || !end) {
+            return false;
+        }
+    
+        var separator = '.';
+        var ipType = 'v4';
+        var partMaxLength = 3;
+    
+        if(start.indexOf(separator) === -1) {
+            separator = ':';
+            ipType = 'v6';
+            partMaxLength = 4;
+    
+            if(start.indexOf(separator) === -1) {
+                return false;
+            }
+        }
+    
+        if(ip.indexOf(separator) === -1) {
+            return false;
+        }
+    
+        if(ipType === 'v6') {
+            start = extractIPv6Address(start);
+            end = extractIPv6Address(end);
+            ip = extractIPv6Address(ip);
+    
+            if(!start || !end || !ip) {
+                return false;
+            }
+        }
+    
+        var startParts = start.split(separator);
+        var endParts = end.split(separator);
+        var ipParts = ip.split(separator);
+    
+        if(ipType === 'v4' && (startParts.length !== 4 || endParts.length !== 4 || ipParts.length !== 4)) {
+            return false;
+        }
+    
+        function isSmallerOrEqual(smallerParts, biggerParts) {
+            for(var i=0; i<smallerParts.length; i++) {
+                var smallerPart;
+                var biggerPart;
+    
+                if(ipType === 'v6') {
+                    smallerPart = smallerParts[i];
+                    biggerPart = biggerParts[i];
+    
+                } else {
+                    smallerPart = pad(smallerParts[i], partMaxLength);
+                    biggerPart = pad(biggerParts[i], partMaxLength);
+                }
+    
+                if(smallerPart > biggerPart) {
+                    return false;
+                }
+    
+                if(smallerPart < biggerPart) {
+                    return true;
+                }
+    
+            }
+    
+            return true;
+        }
+    
+        var isInRangeResult = isSmallerOrEqual(startParts, ipParts) && isSmallerOrEqual(ipParts, endParts);
+        return isInRangeResult;
+    }
+    
+    function isInRanges(ip, ranges) {
+        for(var i=0; i<ranges.length; i++) {
+            if(isInRange(ip, ranges[i][0], ranges[i][1])) {
+                return true;
+            }
+        }
+    
+        return false;
+    }
+    
+    function shuffleArray(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex ;
+    
+        while (currentIndex !== 0) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+    
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+    
+        return array;
+    }
+    
+    function makeStringFromArray(array) { 
+        return makeStringFromArrayWithSeed(array, 0);
+    }
+    
+    function makeStringFromArrayWithSeed(array, seed, customFallback, appendDirect) {
+        var startPoint = seed % array.length;
+        var stringFromArray = array.slice(startPoint).concat(array.slice(0, startPoint)).join(" ");
+    
+        stringFromArray += (customFallback || '');
+    
+        if(appendDirect) {
+            stringFromArray += ' DIRECT;';
+        }
+    
+        return stringFromArray;
+    }
+    
+    function convertIpToNumber(ipAddr) {
+        var ret = 0;
+        var splitIp = ipAddr.split(".");
+        for (var i in splitIp) {
+            ret += parseInt(splitIp[i], 10);
+        }
+        
+        return ret;
+    }
+    
+    
+}
+
