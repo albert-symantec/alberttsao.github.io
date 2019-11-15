@@ -1,0 +1,5 @@
+$ git merge origin/master
+Updating 85e848b..8c3a0a5
+Fast-forward
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
